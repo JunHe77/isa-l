@@ -1,16 +1,101 @@
 kind: pipeline
-name: arm64
+name: arm64-linux-gcc
+
 platform:
   os: linux
   arch: arm64
 
+steps:
+- name: arm64-linux-gcc
+  image: ubuntu:xenial
+  environment:
+    C_COMPILER: gcc
+  commands:
+  - apt-get -qq update
+  - apt-get install -qq -y build-essential git indent libtool libz-dev software-properties-common yasm autoconf
+  - gcc --version
+  - ./tools/test_autorun.sh "${TEST_TYPE}"
+
+---
+kind: pipeline
+name: arm64-linux-clang
+
+platform:
+  os: linux
+  arch: arm64
 
 steps:
-- name: setup-env
-  image: ubuntu:16.04
+- name: arm64-linux-clang
+  image: ubuntu:xenial
+  environment:
+    C_COMPILER: clang
   commands:
-  - apt update -y
-  - apt install -y build-essential
-  - gcc --version
-  - uname -a
+  - apt-get -qq update
+  - apt-get install -qq -y build-essential git indent libtool libz-dev software-properties-common yasm autoconf
+  - apt-get install -qq -y clang
+  - clang --version
+  - ./tools/test_autorun.sh "${TEST_TYPE}"
 
+---
+kind: pipeline
+name: arm64-linux-gcc-4.7
+
+platform:
+  os: linux
+  arch: arm64
+
+steps:
+- name: arm64-linux-gcc-4.7
+  image: ubuntu:xenial
+  environment:
+    C_COMPILER: gcc-4.7
+  commands:
+  - apt-get -qq update
+  - apt-get install -qq -y build-essential git indent libtool libz-dev software-properties-common yasm autoconf
+  - add-apt-repository -y ppa:ubuntu-toolchain-r/test
+  - apt-get -qq update
+  - apt-get install -qq -y g++-4.7
+  - gcc-4.7 --version
+  - ./tools/test_autorun.sh "${TEST_TYPE}"
+
+---
+kind: pipeline
+name: arm64-linux-gcc-6
+
+platform:
+  os: linux
+  arch: arm64
+
+steps:
+- name: arm64-linux-gcc-6
+  image: ubuntu:xenial
+  environment:
+    C_COMPILER: gcc-6
+  commands:
+  - apt-get -q update
+  - apt-get install -y build-essential git indent libtool libz-dev software-properties-common yasm autoconf
+  - add-apt-repository -y ppa:ubuntu-toolchain-r/test
+  - apt-get -qq update
+  - apt-get install -y g++-6
+  - gcc-6 --version
+  - ./tools/test_autorun.sh "${TEST_TYPE}"
+
+---
+kind: pipeline
+name: arm64-linux-extended-tests
+
+platform:
+  os: linux
+  arch: arm64
+
+steps:
+- name: arm64-linux-extended-tests
+  image: ubuntu:xenial
+  environment:
+    TEST_TYPE: ext
+  commands:
+  - apt-get -qq update
+  - apt-get install -qq -y build-essential git indent libtool libz-dev software-properties-common yasm autoconf
+  - add-apt-repository -y ppa:ubuntu-toolchain-r/test
+  - apt-get install -qq -y binutils-mingw-w64-x86-64 gcc-mingw-w64-x86-64
+  - ./tools/test_autorun.sh "${TEST_TYPE}"

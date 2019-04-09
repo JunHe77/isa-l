@@ -1,7 +1,8 @@
 Intel(R) Intelligent Storage Acceleration Library
 =================================================
 
-[![Build Status](https://travis-ci.org/01org/isa-l.svg?branch=master)](https://travis-ci.org/01org/isa-l)
+x86: [![Build Status](https://travis-ci.org/JunHe77/isa-l.svg?branch=master)](https://travis-ci.org/JunHe77/isa-l)
+Arm64: [![Build Status](https://cloud.drone.io/api/badges/JunHe77/isa-l/status.svg?branch=drone)](https://cloud.drone.io/JunHe77/isa-l)
 
 ISA-L is a collection of optimized low-level functions targeting storage
 applications.  ISA-L includes:
