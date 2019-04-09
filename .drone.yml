@@ -1,0 +1,7 @@
+pipeline:
+  build:
+    image: ubuntu:16.04
+    commands: gcc --version
+  test:
+    image: ubuntu:16.04
+    commands: gcc --version
