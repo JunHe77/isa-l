@@ -1,7 +1,16 @@
-pipeline:
-  build:
-    image: ubuntu:16.04
-    commands: gcc --version
-  test:
-    image: ubuntu:16.04
-    commands: gcc --version
+kind: pipeline
+name: arm64
+platform:
+  os: linux
+  arch: arm64
+
+
+steps:
+- name: setup-env
+  image: ubuntu:16.04
+  commands:
+  - apt update -y
+  - apt install -y build-essential
+  - gcc --version
+  - uname -a
+
