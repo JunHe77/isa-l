@@ -60,3 +60,4 @@ Other targets include:
 * `make ex`    : build examples
 * `make other` : build other utilities such as compression file tests
 * `make doc`   : build API manual
+# Arm CI trigger on Drone.io
